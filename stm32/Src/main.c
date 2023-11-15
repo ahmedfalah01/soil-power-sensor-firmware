@@ -37,7 +37,7 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-
+#define DELAY_COUNT    ( 80000 )   /* delay count */
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -49,6 +49,11 @@
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
+static void delay( void )
+ {
+      uint32_t i = 0;
+      for( i=0; i<=DELAY_COUNT; i++ );
+  }
 
 /* USER CODE END PFP */
 
@@ -83,9 +88,8 @@ int main(void)
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
-  MX_GPIO_Init();
+  GPIOB->MODER = 0x40100000;
   /* USER CODE BEGIN 2 */
-  MX_GPIO_Init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -95,8 +99,10 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_5);
-    HAL_Delay(100);
+    GPIOB->ODR = 0x00008400;
+	  delay();
+	  GPIOB->ODR = 0x00000000;
+	  delay();
   }
   /* USER CODE END 3 */
 }
