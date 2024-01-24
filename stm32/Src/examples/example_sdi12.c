@@ -14,6 +14,8 @@
 #include "usart.h"
 #include "gpio.h"
 #include "sdi12.h"
+#include "dma.h"
+#include "main.h"
 
 #include <stdio.h>
 
