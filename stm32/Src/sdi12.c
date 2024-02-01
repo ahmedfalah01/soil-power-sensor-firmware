@@ -101,7 +101,7 @@ static HAL_StatusTypeDef SDI12_QueryDevice(const char cmd[], const uint8_t cmd_l
     }
 
     uint8_t count = 0;
-    res = SDI12_ReceiveLine(response, response_len, &count);
+     res = SDI12_ReceiveLine(response, response_len, &count);
     return res;
 }
 
@@ -123,6 +123,8 @@ static HAL_StatusTypeDef SDI12_ReceiveLine(char buffer[], const uint8_t max, uin
     // Put the SDI-12 pin into RX mode so the sensor response can be read.
     __HAL_UART_DISABLE(sdi12.Huart);
     MODIFY_REG(sdi12.Huart->Instance->CR2, USART_CR2_SWAP, UART_ADVFEATURE_SWAP_ENABLE);
+    //CLEAR_BIT(sdi12.huart->Instance->CR1, USART_CR1_TE);
+    //SET_BIT(sdi12.huart->Instance->CR1, USART_CR1_RE);
     __HAL_UART_ENABLE(sdi12.Huart);
 
     // Receive up to max chars, break on CR/LF pair.
