@@ -18,13 +18,13 @@ extern "C" {
 
 #include <stdio.h>
 
-#include "../Inc/i2c.h"
-#include "../Inc/usart.h"
-#include "../../../../../.platformio/packages/framework-stm32cubewl/Utilities/misc/stm32_systime.h"
+#include "i2c.h"
+#include "usart.h"
+#include "stm32_systime.h"
 
-#include "../Inc/user_config.h"
-#include "../Inc/timestamp.h"
-#include "../../proto/c/include/transcoder.h"
+#include "user_config.h"
+#include "timestamp.h"
+#include "transcoder.h"
 
 #define ADS12_WRITE 0x80
 #define ADS12_READ 0x81
