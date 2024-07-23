@@ -1,3 +1,10 @@
+/**
+ * @file     user_config.h
+ * @author   Ahmed Hassan Falah
+ * @brief    
+ * 
+ * 
+ */
 #ifndef __USER_CONFIG_H__
 #define __USER_CONFIG_H__
 
@@ -10,7 +17,12 @@ extern "C"
 {
 #endif
 
-// TODO add loading and saving of user config
+#include <stdio.h>
+
+#include "i2c.h"
+
+#include "fram.h"
+
 
 #ifdef __cplusplus
 }

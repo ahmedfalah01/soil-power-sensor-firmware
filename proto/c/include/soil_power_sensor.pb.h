@@ -77,6 +77,28 @@ typedef struct _Response {
     Response_ResponseType resp;
 } Response;
 
+/* User Configuration message */
+typedef struct _UserConfiguration {
+    /* id of the cell measured */
+    uint32_t cell_id;
+    /* id of the logging device */
+    uint32_t logger_id;
+    /* WiFi SSID */
+    pb_callback_t WiFi_SSID;
+    /* WiFi password */
+    pb_callback_t WiFi_Password;
+    /* API endpoint URL */
+    pb_callback_t API_URL;
+    /* Calibration slope for voltage */
+    double Voltage_Slope;
+    /* Calibration offset for voltage */
+    int32_t Voltage_Offset;
+    /* Calibration slope for current */
+    double Current_Slope;
+    /* Calibration offset for current */
+    int32_t Current_Offset;
+} UserConfiguration;
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -95,6 +117,7 @@ extern "C" {
 #define Response_resp_ENUMTYPE Response_ResponseType
 
 
+
 /* Initializer values for message structs */
 #define MeasurementMetadata_init_default         {0, 0, 0}
 #define PowerMeasurement_init_default            {0, 0}
@@ -102,12 +125,14 @@ extern "C" {
 #define Phytos31Measurement_init_default         {0, 0}
 #define Measurement_init_default                 {false, MeasurementMetadata_init_default, 0, {PowerMeasurement_init_default}}
 #define Response_init_default                    {_Response_ResponseType_MIN}
+#define UserConfiguration_init_default           {0, 0, {{NULL}, NULL}, {{NULL}, NULL}, {{NULL}, NULL}, 0, 0, 0, 0}
 #define MeasurementMetadata_init_zero            {0, 0, 0}
 #define PowerMeasurement_init_zero               {0, 0}
 #define Teros12Measurement_init_zero             {0, 0, 0, 0}
 #define Phytos31Measurement_init_zero            {0, 0}
 #define Measurement_init_zero                    {false, MeasurementMetadata_init_zero, 0, {PowerMeasurement_init_zero}}
 #define Response_init_zero                       {_Response_ResponseType_MIN}
+#define UserConfiguration_init_zero              {0, 0, {{NULL}, NULL}, {{NULL}, NULL}, {{NULL}, NULL}, 0, 0, 0, 0}
 
 /* Field tags (for use in manual encoding/decoding) */
 #define MeasurementMetadata_cell_id_tag          1
@@ -126,6 +151,15 @@ extern "C" {
 #define Measurement_teros12_tag                  3
 #define Measurement_phytos31_tag                 4
 #define Response_resp_tag                        1
+#define UserConfiguration_cell_id_tag            1
+#define UserConfiguration_logger_id_tag          2
+#define UserConfiguration_WiFi_SSID_tag          3
+#define UserConfiguration_WiFi_Password_tag      4
+#define UserConfiguration_API_URL_tag            5
+#define UserConfiguration_Voltage_Slope_tag      6
+#define UserConfiguration_Voltage_Offset_tag     7
+#define UserConfiguration_Current_Slope_tag      8
+#define UserConfiguration_Current_Offset_tag     9
 
 /* Struct field encoding specification for nanopb */
 #define MeasurementMetadata_FIELDLIST(X, a) \
@@ -172,12 +206,26 @@ X(a, STATIC,   SINGULAR, UENUM,    resp,              1)
 #define Response_CALLBACK NULL
 #define Response_DEFAULT NULL
 
+#define UserConfiguration_FIELDLIST(X, a) \
+X(a, STATIC,   SINGULAR, UINT32,   cell_id,           1) \
+X(a, STATIC,   SINGULAR, UINT32,   logger_id,         2) \
+X(a, CALLBACK, SINGULAR, STRING,   WiFi_SSID,         3) \
+X(a, CALLBACK, SINGULAR, STRING,   WiFi_Password,     4) \
+X(a, CALLBACK, SINGULAR, STRING,   API_URL,           5) \
+X(a, STATIC,   SINGULAR, DOUBLE,   Voltage_Slope,     6) \
+X(a, STATIC,   SINGULAR, INT32,    Voltage_Offset,    7) \
+X(a, STATIC,   SINGULAR, DOUBLE,   Current_Slope,     8) \
+X(a, STATIC,   SINGULAR, INT32,    Current_Offset,    9)
+#define UserConfiguration_CALLBACK pb_default_field_callback
+#define UserConfiguration_DEFAULT NULL
+
 extern const pb_msgdesc_t MeasurementMetadata_msg;
 extern const pb_msgdesc_t PowerMeasurement_msg;
 extern const pb_msgdesc_t Teros12Measurement_msg;
 extern const pb_msgdesc_t Phytos31Measurement_msg;
 extern const pb_msgdesc_t Measurement_msg;
 extern const pb_msgdesc_t Response_msg;
+extern const pb_msgdesc_t UserConfiguration_msg;
 
 /* Defines for backwards compatibility with code written before nanopb-0.4.0 */
 #define MeasurementMetadata_fields &MeasurementMetadata_msg
@@ -186,8 +234,10 @@ extern const pb_msgdesc_t Response_msg;
 #define Phytos31Measurement_fields &Phytos31Measurement_msg
 #define Measurement_fields &Measurement_msg
 #define Response_fields &Response_msg
+#define UserConfiguration_fields &UserConfiguration_msg
 
 /* Maximum encoded size of messages (where known) */
+/* UserConfiguration_size depends on runtime parameters */
 #define MeasurementMetadata_size                 18
 #define Measurement_size                         55
 #define Phytos31Measurement_size                 18

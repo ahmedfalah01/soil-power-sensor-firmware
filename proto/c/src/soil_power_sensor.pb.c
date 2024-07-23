@@ -24,6 +24,9 @@ PB_BIND(Measurement, Measurement, AUTO)
 PB_BIND(Response, Response, AUTO)
 
 
+PB_BIND(UserConfiguration, UserConfiguration, AUTO)
+
+
 
 
 #ifndef PB_CONVERT_DOUBLE_FLOAT

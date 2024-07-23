@@ -78,3 +78,24 @@ message Response {
   /* Response from server */
   ResponseType resp = 1; 
 }
+/* User Configuration message */
+message UserConfiguration {
+  // id of the cell measured
+  uint32 cell_id = 1;
+  // id of the logging device
+  uint32 logger_id = 2;
+  // WiFi SSID
+  string WiFi_SSID=	3;
+  //  WiFi password
+  string WiFi_Password=	4;  
+  // API endpoint URL
+  string API_URL =	5;	
+  // Calibration slope for voltage
+  double Voltage_Slope = 6;
+  // Calibration offset for voltage
+  int32 Voltage_Offset =	7;
+  // Calibration slope for current
+  double Current_Slope =	8;
+  // Calibration offset for current
+  int32 Current_Offset = 9;
+}
